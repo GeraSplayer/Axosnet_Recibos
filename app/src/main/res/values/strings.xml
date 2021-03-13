@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Axosnet_Recibos</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="ax_provider">Provider</string>
+    <string name="ax_amount">Amount</string>
+    <string name="ax_comment">Comment</string>
+    <string name="ax_emission_date">Emission Date</string>
+    <string name="ax_currency_code">Currency Code</string>
+
+    <string-array name="ax_currency_code">
+        <item name="CC">--Currency Code--</item>
+        <item name="mex">MXN</item>
+        <item name="usa">USD</item>
+        <item name="arg">ARS</item>
+    </string-array>
+
 </resources>
