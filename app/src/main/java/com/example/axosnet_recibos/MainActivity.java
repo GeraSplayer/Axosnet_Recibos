@@ -10,6 +10,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,66 +19,61 @@ import com.example.axosnet_recibos.AxClases.AxReciboContent;
 import com.example.axosnet_recibos.AxFragments.AxFragmentLista;
 import com.example.axosnet_recibos.AxFragments.AxFragmentNew;
 import com.example.axosnet_recibos.AxNetwork.AxNetworking;
+import com.example.axosnet_recibos.Interfaces.Feedback;
 import com.example.axosnet_recibos.Interfaces.NetCallback;
+import com.example.axosnet_recibos.Interfaces.OnBackbuttonListener;
 import com.example.axosnet_recibos.Interfaces.OnFragmentClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnFragmentClickListener {
+public class MainActivity extends AppCompatActivity implements OnFragmentClickListener, OnBackbuttonListener, Feedback {
 
     FloatingActionButton fabAgregarRecibo;
     TextView tvCurrentFrag;
+    ProgressBar mLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fabAgregarRecibo = (FloatingActionButton) findViewById(R.id.fabAgregarRecibo);
+
         if (!isNetworkAvailable()) {
-            showToast("No tienes conectividad!!!");
+            ((TextView)findViewById(R.id.tvNoCon)).setVisibility(View.VISIBLE);
+            ((ImageView)findViewById(R.id.ivNoCon)).setVisibility(View.VISIBLE);
+            fabAgregarRecibo.setVisibility(View.GONE);
+
             return;
         }
 
+        mLoading = (ProgressBar) findViewById(R.id.progressBar);
+        mLoading.setVisibility(View.VISIBLE);
         tvCurrentFrag = (TextView) findViewById(R.id.tvCurrentFrag);
 
-        new AxNetworking (MainActivity.this).execute("getAll", new NetCallback() {
-            @Override
-            public void onWorkFinish(Object data) {
-                List<AxReciboContent> lista = (List<AxReciboContent>)data ;
+        changeFragment(new AxFragmentLista(this), "Lista");
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        changeFragment(new AxFragmentLista(MainActivity.this, lista), "Lista");
-                    }
-                });
-            }
-        });
-
-
-        fabAgregarRecibo = (FloatingActionButton) findViewById(R.id.fabAgregarRecibo);
         fabAgregarRecibo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvCurrentFrag.setText("Nuevo Recibo");
-                changeFragment(new AxFragmentNew(), "New");
+                tvCurrentFrag.setText(R.string.New);
+                changeFragment(new AxFragmentNew(MainActivity.this, 0), "New");
             }
         });
     }
-
-
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        tvCurrentFrag.setText("Recibos");
+        tvCurrentFrag.setText(R.string.Main);
+        fabAgregarRecibo.show();
     }
 
+    FragmentManager fm;
     private void changeFragment(Fragment newFragment, String tag) {
-        //solo controla los fragmentos de una activity
-        FragmentManager fm = getSupportFragmentManager();
+        fm = getSupportFragmentManager();
 
         Fragment currentFragment = fm.findFragmentByTag(tag);
         if (currentFragment != null && currentFragment.isVisible()) {
@@ -84,18 +81,19 @@ public class MainActivity extends AppCompatActivity implements OnFragmentClickLi
             return;
         }
 
-        //se encarga de los cambios
-        FragmentTransaction ft = fm.beginTransaction();             //1 se inicia transacción
-        ft.replace(R.id.containerFrameMain, newFragment, tag);      //2 el tipo de cambio
-        ft.addToBackStack(null);
-        ft.commit();                                                //3 ejecuta el cambio
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.containerFrameMain, newFragment, tag);
+        if(!tag.equals("Lista")) {
+            fabAgregarRecibo.hide();
+            ft.addToBackStack(null);
+        }
+        ft.commit();
     }
 
     @Override
     public void onListClick(int id) {
-        tvCurrentFrag.setText("Editar Recibo");
-        changeFragment(new AxFragmentNew(), "Edit");
-        //Toast.makeText(this, "id", Toast.LENGTH_SHORT).show();
+        tvCurrentFrag.setText(R.string.Edit);
+        changeFragment(new AxFragmentNew(this, id), "Edit");
     }
 
     boolean isNetworkAvailable() {
@@ -105,5 +103,21 @@ public class MainActivity extends AppCompatActivity implements OnFragmentClickLi
     }
     private void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void backlistener() {
+        super.onBackPressed();
+        fabAgregarRecibo.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        mLoading.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showUpdate(String message) {
+
     }
 }

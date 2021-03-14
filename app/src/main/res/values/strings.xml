@@ -3,6 +3,14 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="Main">Receipts</string>
+    <string name="New">New Receipt</string>
+    <string name="Edit">Editing Receipt</string>
+    <string name="NoCon">No Connection</string>
+
+    <string name="NewR">Add</string>
+    <string name="EditR">Apply</string>
+
     <string name="ax_provider">Provider</string>
     <string name="ax_amount">Amount</string>
     <string name="ax_comment">Comment</string>
@@ -13,7 +21,7 @@
         <item name="CC">--Currency Code--</item>
         <item name="mex">MXN</item>
         <item name="usa">USD</item>
-        <item name="arg">ARS</item>
     </string-array>
 
+    <string name="test">Lorem ipsum dolor sit amet consectetur adipiscing elit pharetra quam magna, dis sodales condimentum est maecenas purus volutpat ullamcorper phasellus potenti vel, natoque pretium lacinia id suscipit lobortis gravida proin accumsan.</string>
 </resources>

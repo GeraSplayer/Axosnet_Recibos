@@ -53,20 +53,27 @@ public class AxNetworking extends AsyncTask<Object, Integer, Object> {
     @Override
     protected Object doInBackground(Object... params) {
         String action = (String) params[0];
-        if (action.equals("signup")) {
-            //
-            List<AxReciboContent> lista = getAll();
-            NetCallback netCallback = (NetCallback) params[1];
-            netCallback.onWorkFinish(lista);
+        if (action.equals("getById")) {
+            int id = (int)params[1];
+            AxReciboContent recibo = getById(id);
+            NetCallback netCallback = (NetCallback) params[2];
+            netCallback.onWorkFinish(recibo);
         } else if (action.equals("getAll")) {
             List<AxReciboContent> lista = getAll();
             NetCallback netCallback = (NetCallback) params[1];
             netCallback.onWorkFinish(lista);
+        } else if (action.equals("insert")) {
+            boolean insertado = Insert((AxReciboContent) params[1]);
+            NetCallback netCallback = (NetCallback) params[2];
+            netCallback.onWorkFinish(insertado);
+        } else if (action.equals("Delete")) {
+            int id = (int)params[1];
+            boolean insertado = Delete(id);
+            NetCallback netCallback = (NetCallback) params[2];
+            netCallback.onWorkFinish(insertado);
         }
         return null;
     }
-
-
 
     private List<AxReciboContent> getAll(){
 
@@ -125,8 +132,108 @@ public class AxNetworking extends AsyncTask<Object, Integer, Object> {
         }
         return lista;
     }
+    private AxReciboContent getById(int id){
 
-    // Metodo que lee un String desde un InputStream (Convertimos el InputStream del servidor en un String)
+        AxReciboContent recibo = null;
+        String response = "";
+        HttpURLConnection conn = null;
+        URL url = null;
+        try {
+            url = new URL(SERVER_PATH+"getbyid?id="+id);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.setConnectTimeout(TIMEOUT);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            int responseCode = conn.getResponseCode();
+            Log.w("RESPONSE CODE", "" + responseCode);
+
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            String jsonResponse = inputStreamToString(in);
+            try {
+            /*
+                "[{\"id\":19291,\"provider\":\"Axosnet\",\"amount\":128.10,\"emission_date\":\"5/17/2019 12:00:00 AM\",\"comment\":\"Sin comentario\",\"currency_code\":\"MXN\"}]"
+            */
+                jsonResponse = jsonResponse.replace("\\", "");
+                jsonResponse = jsonResponse.replace("\"[", "");
+                jsonResponse = jsonResponse.replace("]\"", "");
+                JSONObject jsonObject = new JSONObject(jsonResponse);
+                recibo = new AxReciboContent(
+                            jsonObject.optInt("id",0),
+                            jsonObject.optString("provider","Axs"),
+                            jsonObject.optString("amount","0.0"),
+                            jsonObject.optString("comment","-"),
+                            jsonObject.optString("emission_date","01/01/2000 12:00:00 AM"),
+                            jsonObject.optString("currency_code","MXN") );
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return recibo;
+    }
+    private boolean Insert(AxReciboContent recibo){
+
+        String postParams = "insert?" + recibo.toString();
+        HttpURLConnection conn = null;
+        URL url = null;
+        try {
+            url = new URL(SERVER_PATH + postParams);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setConnectTimeout(TIMEOUT);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setFixedLengthStreamingMode(postParams.getBytes().length);
+
+            OutputStream out = new BufferedOutputStream(conn.getOutputStream());
+            out.write(postParams.getBytes());
+            out.flush();
+            out.close();
+
+            int responseCode = conn.getResponseCode();
+            Log.w("RESPONSE CODE", "" + responseCode);
+
+            if(responseCode != 200)
+                return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    private boolean Delete(int id){
+
+        String postParams = "delete?id" + String.valueOf(id);
+        String response = "";
+        HttpURLConnection conn = null;
+        URL url = null;
+        try {
+            url = new URL(SERVER_PATH+"delete");
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setConnectTimeout(TIMEOUT);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setFixedLengthStreamingMode(postParams.getBytes().length);
+
+            OutputStream out = new BufferedOutputStream(conn.getOutputStream());
+            out.write(postParams.getBytes());
+            out.flush();
+            out.close();
+
+            int responseCode = conn.getResponseCode();
+            Log.w("RESPONSE CODE", "" + responseCode);
+
+            if(responseCode != 200)
+                return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     private String inputStreamToString(InputStream is) {
         String rLine = "";
         StringBuilder response = new StringBuilder();

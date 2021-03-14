@@ -21,6 +21,15 @@ public class AxReciboContent {
         this.currencyCode = currencyCode;
     }
 
+    @Override
+    public String toString() {
+        return "provider=" + provider +
+                "&amount=" + amount +
+                "&comment=" + comment +
+                "&emission_date=" + emissionDate +
+                "&currency_code=" + currencyCode;
+    }
+
     public int getId() {
         return id;
     }

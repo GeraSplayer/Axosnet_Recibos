@@ -23,7 +23,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tvId"
@@ -39,17 +39,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:text="Provider:"
+                android:text="@string/ax_provider"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvProvider"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="Axosnet0"
+                app:layout_constraintEnd_toStartOf="@+id/tvId"
                 app:layout_constraintStart_toEndOf="@+id/lblProvider"
                 app:layout_constraintTop_toTopOf="@+id/lblProvider" />
 
@@ -59,8 +60,18 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="MXN"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvId" />
+                app:layout_constraintStart_toEndOf="@+id/tvAmount"
+                app:layout_constraintTop_toTopOf="@+id/tvAmount" />
+
+            <TextView
+                android:id="@+id/lblAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/ax_amount"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lblProvider" />
 
             <TextView
                 android:id="@+id/tvAmount"
@@ -68,23 +79,25 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="150.0"
-                app:layout_constraintEnd_toStartOf="@+id/tvCurrencyCode"
-                app:layout_constraintTop_toTopOf="@+id/tvCurrencyCode" />
+                app:layout_constraintStart_toEndOf="@+id/lblAmount"
+                app:layout_constraintTop_toBottomOf="@+id/lblProvider" />
 
             <TextView
                 android:id="@+id/lblComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:text="Comment:"
+                android:text="@string/ax_comment"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lblProvider" />
+                app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
 
             <TextView
                 android:id="@+id/tvComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:padding="4dp"
                 android:text="asdf"
                 app:layout_constraintStart_toStartOf="@+id/lblComment"
@@ -95,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:text="Emission Date:"
+                android:text="@string/ax_emission_date"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/tvEmissionDate"
                 app:layout_constraintTop_toTopOf="@+id/tvEmissionDate" />
@@ -106,8 +119,8 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="5/17/2019 12:00:00 AM"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvComment" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
