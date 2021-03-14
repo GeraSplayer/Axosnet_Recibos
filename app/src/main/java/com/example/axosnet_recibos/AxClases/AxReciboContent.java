@@ -30,6 +30,15 @@ public class AxReciboContent {
                 "&currency_code=" + currencyCode;
     }
 
+    public String toStringUpdt() {
+        return "id="+ String.valueOf(id)+
+                "&provider=" + provider +
+                "&amount=" + amount +
+                "&comment=" + comment +
+                "&emission_date=" + emissionDate +
+                "&currency_code=" + currencyCode;
+    }
+
     public int getId() {
         return id;
     }

@@ -66,6 +66,10 @@ public class AxNetworking extends AsyncTask<Object, Integer, Object> {
             boolean insertado = Insert((AxReciboContent) params[1]);
             NetCallback netCallback = (NetCallback) params[2];
             netCallback.onWorkFinish(insertado);
+        } else if (action.equals("update")) {
+            boolean updateado = Update((AxReciboContent) params[1]);
+            NetCallback netCallback = (NetCallback) params[2];
+            netCallback.onWorkFinish(updateado);
         } else if (action.equals("Delete")) {
             int id = (int)params[1];
             boolean insertado = Delete(id);
@@ -177,6 +181,35 @@ public class AxNetworking extends AsyncTask<Object, Integer, Object> {
     private boolean Insert(AxReciboContent recibo){
 
         String postParams = "insert?" + recibo.toString();
+        HttpURLConnection conn = null;
+        URL url = null;
+        try {
+            url = new URL(SERVER_PATH + postParams);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setConnectTimeout(TIMEOUT);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setFixedLengthStreamingMode(postParams.getBytes().length);
+
+            OutputStream out = new BufferedOutputStream(conn.getOutputStream());
+            out.write(postParams.getBytes());
+            out.flush();
+            out.close();
+
+            int responseCode = conn.getResponseCode();
+            Log.w("RESPONSE CODE", "" + responseCode);
+
+            if(responseCode != 200)
+                return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    private boolean Update(AxReciboContent recibo){
+
+        String postParams = "update?" + recibo.toStringUpdt();
         HttpURLConnection conn = null;
         URL url = null;
         try {

@@ -78,9 +78,10 @@ public class AxFragmentNew extends Fragment {
         mBtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String submitType = mId > 0 ? "update":"insert";
                 String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-                AxReciboContent recibo = new AxReciboContent(0,
+                AxReciboContent recibo = new AxReciboContent(mId,
                         mProvider.getEditText().getText().toString(),
                         mAmount.getEditText().getText().toString(),
                         mComment.getEditText().getText().toString(),
@@ -88,7 +89,7 @@ public class AxFragmentNew extends Fragment {
                         mCurrency.getSelectedItem().toString()
                 );
 
-                new AxNetworking(view.getContext()).execute("insert", recibo, new NetCallback() {
+                new AxNetworking(view.getContext()).execute(submitType, recibo, new NetCallback() {
                     @Override
                     public void onWorkFinish(Object data) {
                         getActivity().runOnUiThread(new Runnable() {
