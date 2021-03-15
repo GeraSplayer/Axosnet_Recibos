@@ -6,4 +6,5 @@ package com.example.axosnet_recibos.Interfaces;
 public interface OnFragmentClickListener {
     void onListClick(int id);
     void deleteBtnClick(int id);
+    void scrolledRV(boolean hide);
 }

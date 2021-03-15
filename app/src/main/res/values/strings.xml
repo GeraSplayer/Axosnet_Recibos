@@ -18,10 +18,18 @@
     <string name="ax_currency_code">Currency Code</string>
 
     <string-array name="ax_currency_code">
-        <item name="CC">--Currency Code--</item>
+        <item name="CC">--Currency--</item>
         <item name="mex">MXN</item>
         <item name="usa">USD</item>
     </string-array>
+
+    <string name="deleteConfirmation">Are you sure to delete?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="insertMsg">New receipt added successfully</string>
+    <string name="updateMsg">Updated successfully</string>
+    <string name="deleteMsg">deleted successfully</string>
 
     <string name="test">Lorem ipsum dolor sit amet consectetur adipiscing elit pharetra quam magna, dis sodales condimentum est maecenas purus volutpat ullamcorper phasellus potenti vel, natoque pretium lacinia id suscipit lobortis gravida proin accumsan.</string>
 </resources>

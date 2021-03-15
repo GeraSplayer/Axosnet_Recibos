@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusable="true">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -31,8 +31,11 @@
                 android:id="@+id/ibtnDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="4dp"
+                android:tint="@color/red"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvId"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_delete" />
 
             <TextView
@@ -41,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="19000"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ibtnDelete"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -50,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="@string/ax_provider"
+                android:textColor="@color/purple_700"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -79,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="@string/ax_amount"
+                android:textColor="@color/purple_700"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lblProvider" />
@@ -98,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="@string/ax_comment"
+                android:textColor="@color/purple_700"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
@@ -114,22 +120,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/lblComment" />
 
             <TextView
-                android:id="@+id/lblDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:text="@string/ax_emission_date"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/tvEmissionDate"
-                app:layout_constraintTop_toTopOf="@+id/tvEmissionDate" />
-
-            <TextView
                 android:id="@+id/tvEmissionDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="5/17/2019 12:00:00 AM"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ibtnDelete"
                 app:layout_constraintTop_toBottomOf="@+id/tvComment" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

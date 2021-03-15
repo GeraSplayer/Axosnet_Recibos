@@ -3,6 +3,7 @@ package com.example.axosnet_recibos.AxFragments;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,6 +51,20 @@ public class AxFragmentLista extends Fragment implements RecyclerViewClickListen
 
         mContext = view.getContext();
         RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if(dy <= 0)
+                    fragmentListener.scrolledRV(false);
+                else
+                    fragmentListener.scrolledRV(true);
+            }
+        });
         myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(mlista, this);
         recyclerView.setAdapter(myItemRecyclerViewAdapter);
         myItemRecyclerViewAdapter.notifyDataSetChanged();

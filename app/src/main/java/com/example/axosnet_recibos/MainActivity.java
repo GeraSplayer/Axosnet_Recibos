@@ -1,6 +1,8 @@
 package com.example.axosnet_recibos;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,12 +12,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.axosnet_recibos.AxClases.AxReciboContent;
 import com.example.axosnet_recibos.AxFragments.AxFragmentLista;
 import com.example.axosnet_recibos.AxFragments.AxFragmentNew;
 import com.example.axosnet_recibos.AxNetwork.AxNetworking;
@@ -24,21 +27,26 @@ import com.example.axosnet_recibos.Interfaces.NetCallback;
 import com.example.axosnet_recibos.Interfaces.OnBackbuttonListener;
 import com.example.axosnet_recibos.Interfaces.OnFragmentClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentClickListener, OnBackbuttonListener, Feedback {
 
+    ConstraintLayout mainlayout;
     FloatingActionButton fabAgregarRecibo;
     TextView tvCurrentFrag;
     ProgressBar mLoading;
+    Button btnConfirmDelete;
+    Button btnCancel;
+    TextView tvDeleteId;
+    CardView cvConfirmation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mainlayout = (ConstraintLayout) findViewById(R.id.mainLayout);
         fabAgregarRecibo = (FloatingActionButton) findViewById(R.id.fabAgregarRecibo);
 
         if (!isNetworkAvailable()) {
@@ -62,6 +70,19 @@ public class MainActivity extends AppCompatActivity implements OnFragmentClickLi
                 changeFragment(new AxFragmentNew(MainActivity.this, 0), "New");
             }
         });
+
+        cvConfirmation = findViewById(R.id.cvConfirmation);
+        tvDeleteId = findViewById(R.id.tvDeleteId);
+        btnConfirmDelete = findViewById(R.id.btnConfirmDelete);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cvConfirmation.setVisibility(View.GONE);
+                tvDeleteId.setText("");
+            }
+        });
+
     }
 
     @Override
@@ -98,14 +119,35 @@ public class MainActivity extends AppCompatActivity implements OnFragmentClickLi
 
     @Override
     public void deleteBtnClick(int id) {
+        tvDeleteId.setText(String.valueOf(id));
+        cvConfirmation.setVisibility(View.VISIBLE);
+        btnConfirmDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteconfirmed(id);
+                tvDeleteId.setText("");
+            }
+        });
+    }
+
+    @Override
+    public void scrolledRV(boolean hide) {
+        if(hide)
+            fabAgregarRecibo.hide();
+        else
+            fabAgregarRecibo.show();
+    }
+
+    private void deleteconfirmed(int id){
         new AxNetworking(this).execute("delete", id, new NetCallback() {
             @Override
             public void onWorkFinish(Object data) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        cvConfirmation.setVisibility(View.GONE);
                         if((Boolean)data) {
-                            showToast("Borrado");
+                            showUpdate(String.valueOf(id)+" Correctamente eliminado");
                             ((AxFragmentLista) fm.findFragmentByTag("Lista")).initLista();
                         }else
                             showToast("Error");
@@ -137,6 +179,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentClickLi
 
     @Override
     public void showUpdate(String message) {
-
+        Snackbar.make(mainlayout, message, Snackbar.LENGTH_SHORT).show();
     }
 }
