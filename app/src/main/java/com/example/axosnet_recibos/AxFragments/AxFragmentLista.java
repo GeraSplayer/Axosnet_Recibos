@@ -84,4 +84,9 @@ public class AxFragmentLista extends Fragment implements RecyclerViewClickListen
     public void recyclerViewListClicked(View v, int id) {
         fragmentListener.onListClick(id);
     }
+
+    @Override
+    public void deleteButtonClicked(int id) {
+        fragmentListener.deleteBtnClick(id);
+    }
 }

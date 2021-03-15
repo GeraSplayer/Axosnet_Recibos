@@ -7,4 +7,5 @@ import android.view.View;
  */
 public interface RecyclerViewClickListener {
     void recyclerViewListClicked(View v, int id);
+    void deleteButtonClicked(int id);
 }

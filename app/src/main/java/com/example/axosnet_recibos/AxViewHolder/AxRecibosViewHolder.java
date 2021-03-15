@@ -1,6 +1,7 @@
 package com.example.axosnet_recibos.AxViewHolder;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class AxRecibosViewHolder extends RecyclerView.ViewHolder implements View
     public final TextView mCurrencyCodeView;
     public AxReciboContent mItem;
     RecyclerViewClickListener listener;
+    public final ImageButton mDeleteBtn;
 
     public AxRecibosViewHolder(View view, RecyclerViewClickListener rcvListener) {
         super(view);
@@ -36,8 +38,14 @@ public class AxRecibosViewHolder extends RecyclerView.ViewHolder implements View
         mCurrencyCodeView = (TextView) view.findViewById(R.id.tvCurrencyCode);
         listener = rcvListener;
         mView.setOnClickListener(this);
+        mDeleteBtn = (ImageButton)view.findViewById(R.id.ibtnDelete);
+        mDeleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.deleteButtonClicked( Integer.parseInt(mIdView.getText().toString()) );
+            }
+        });
     }
-
 
     @Override
     public void onClick(View view) {

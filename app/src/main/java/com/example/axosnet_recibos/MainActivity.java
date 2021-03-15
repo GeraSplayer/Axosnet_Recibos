@@ -96,6 +96,25 @@ public class MainActivity extends AppCompatActivity implements OnFragmentClickLi
         changeFragment(new AxFragmentNew(this, id), "Edit");
     }
 
+    @Override
+    public void deleteBtnClick(int id) {
+        new AxNetworking(this).execute("delete", id, new NetCallback() {
+            @Override
+            public void onWorkFinish(Object data) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if((Boolean)data) {
+                            showToast("Borrado");
+                            ((AxFragmentLista) fm.findFragmentByTag("Lista")).initLista();
+                        }else
+                            showToast("Error");
+                    }
+                });
+            }
+        });
+    }
+
     boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();

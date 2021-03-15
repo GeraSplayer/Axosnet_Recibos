@@ -70,7 +70,7 @@ public class AxNetworking extends AsyncTask<Object, Integer, Object> {
             boolean updateado = Update((AxReciboContent) params[1]);
             NetCallback netCallback = (NetCallback) params[2];
             netCallback.onWorkFinish(updateado);
-        } else if (action.equals("Delete")) {
+        } else if (action.equals("delete")) {
             int id = (int)params[1];
             boolean insertado = Delete(id);
             NetCallback netCallback = (NetCallback) params[2];
@@ -238,12 +238,11 @@ public class AxNetworking extends AsyncTask<Object, Integer, Object> {
     }
     private boolean Delete(int id){
 
-        String postParams = "delete?id" + String.valueOf(id);
-        String response = "";
+        String postParams = "delete?id=" + String.valueOf(id);
         HttpURLConnection conn = null;
         URL url = null;
         try {
-            url = new URL(SERVER_PATH+"delete");
+            url = new URL(SERVER_PATH + postParams);
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoInput(true);
             conn.setDoOutput(true);
