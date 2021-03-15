@@ -115,6 +115,7 @@ public class AxNetworking extends AsyncTask<Object, Integer, Object> {
                 jsonResponse = jsonResponse.replace("\\", "");
                 jsonResponse = jsonResponse.replace("\"[", "[");
                 jsonResponse = jsonResponse.replace("]\"", "]");
+                jsonResponse = jsonResponse.replace("\"Pago restante\"", "Pago restante");
                 JSONArray jsonArray = new JSONArray(jsonResponse);
 
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -161,6 +162,8 @@ public class AxNetworking extends AsyncTask<Object, Integer, Object> {
                 jsonResponse = jsonResponse.replace("\\", "");
                 jsonResponse = jsonResponse.replace("\"[", "");
                 jsonResponse = jsonResponse.replace("]\"", "");
+                jsonResponse = jsonResponse.replace("\"Pago restante\"", "Pago restante");
+
                 JSONObject jsonObject = new JSONObject(jsonResponse);
                 recibo = new AxReciboContent(
                             jsonObject.optInt("id",0),

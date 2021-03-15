@@ -27,6 +27,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <View
+                android:id="@+id/view"
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#1E000000"
+                app:layout_constraintBottom_toBottomOf="@+id/tvEmissionDate"
+                app:layout_constraintEnd_toStartOf="@+id/ibtnDelete"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageButton
                 android:id="@+id/ibtnDelete"
                 android:layout_width="wrap_content"
@@ -34,6 +45,7 @@
                 android:background="@null"
                 android:padding="4dp"
                 android:tint="@color/red"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_delete" />
@@ -42,9 +54,11 @@
                 android:id="@+id/tvId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:padding="4dp"
                 android:text="19000"
-                app:layout_constraintEnd_toStartOf="@+id/ibtnDelete"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/view"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -110,12 +124,13 @@
 
             <TextView
                 android:id="@+id/tvComment"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:padding="4dp"
                 android:text="asdf"
+                app:layout_constraintEnd_toStartOf="@+id/view"
                 app:layout_constraintStart_toStartOf="@+id/lblComment"
                 app:layout_constraintTop_toBottomOf="@+id/lblComment" />
 
@@ -123,6 +138,7 @@
                 android:id="@+id/tvEmissionDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:padding="4dp"
                 android:text="5/17/2019 12:00:00 AM"
                 app:layout_constraintEnd_toStartOf="@+id/ibtnDelete"

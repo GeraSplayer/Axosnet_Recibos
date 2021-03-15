@@ -29,7 +29,6 @@ import com.example.axosnet_recibos.Interfaces.OnFragmentClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-
 public class MainActivity extends AppCompatActivity implements OnFragmentClickListener, OnBackbuttonListener, Feedback {
 
     ConstraintLayout mainlayout;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentClickLi
     Button btnConfirmDelete;
     Button btnCancel;
     TextView tvDeleteId;
-    CardView cvConfirmation;
+    View cvConfirmation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentClickLi
             }
         });
 
-        cvConfirmation = findViewById(R.id.cvConfirmation);
+        cvConfirmation = findViewById(R.id.layoutConfirm);
         tvDeleteId = findViewById(R.id.tvDeleteId);
         btnConfirmDelete = findViewById(R.id.btnConfirmDelete);
         btnCancel = findViewById(R.id.btnCancel);

@@ -18,7 +18,6 @@
     <string name="ax_currency_code">Currency Code</string>
 
     <string-array name="ax_currency_code">
-        <item name="CC">--Currency--</item>
         <item name="mex">MXN</item>
         <item name="usa">USD</item>
     </string-array>

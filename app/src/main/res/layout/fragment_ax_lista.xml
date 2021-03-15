@@ -8,6 +8,8 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".AxFragments.AxFragmentLista"
     tools:listitem="@layout/recibos" />

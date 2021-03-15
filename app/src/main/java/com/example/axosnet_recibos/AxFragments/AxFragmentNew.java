@@ -87,9 +87,9 @@ public class AxFragmentNew extends Fragment {
                         mProvider.getEditText().setText(recibo.getProvider());
                         mAmount.getEditText().setText(recibo.getAmount());
                         if (recibo.getCurrencyCode().equals("MXN") || recibo.getCurrencyCode().equals("mxn") )
-                            mCurrency.setSelection(1);
+                            mCurrency.setSelection(0);
                         else if (recibo.getCurrencyCode().equals("USD") || recibo.getCurrencyCode().equals("usd") )
-                            mCurrency.setSelection(2);
+                            mCurrency.setSelection(1);
                         mComment.getEditText().setText(recibo.getComment());
                     }
                 });
