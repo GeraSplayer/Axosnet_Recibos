@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentClickLi
 
     @Override
     public void backlistener() {
-        super.onBackPressed();
+        onBackPressed();
         fabAgregarRecibo.show();
     }
 

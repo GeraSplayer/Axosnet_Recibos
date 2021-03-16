@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Axosnet_Recibos</string>
+    <string name="app_name">AXOSNET</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -19,22 +19,22 @@
     <string name="ax_emission_date">Emission Date</string>
     <string name="ax_currency_code">Currency Code</string>
 
+    <string name="deleteConfirmation">Are you sure to delete?</string>
+
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="insertMsg">New receipt added successfully</string>
+
+    <string name="updateMsg">Updated successfully</string>
+    <string name="deleteMsg">deleted successfully</string>
+    <string name="validationP">You need to enter a name</string>
+
+    <string name="validationA">You need to enter an amount</string>
+    <string name="optional">(Optional)</string>
+    <string name="test">Lorem ipsum dolor sit amet consectetur adipiscing elit pharetra quam magna, dis sodales condimentum est maecenas purus volutpat ullamcorper phasellus potenti vel, natoque pretium lacinia id suscipit lobortis gravida proin accumsan.</string>
+
     <string-array name="ax_currency_code">
         <item name="mex">MXN</item>
         <item name="usa">USD</item>
     </string-array>
-
-    <string name="deleteConfirmation">Are you sure to delete?</string>
-    <string name="delete">Delete</string>
-    <string name="cancel">Cancel</string>
-
-    <string name="insertMsg">New receipt added successfully</string>
-    <string name="updateMsg">Updated successfully</string>
-    <string name="deleteMsg">deleted successfully</string>
-
-    <string name="validationP">You need to enter a name</string>
-    <string name="validationA">You need to enter an amount</string>
-    <string name="optional">(Optional)</string>
-
-    <string name="test">Lorem ipsum dolor sit amet consectetur adipiscing elit pharetra quam magna, dis sodales condimentum est maecenas purus volutpat ullamcorper phasellus potenti vel, natoque pretium lacinia id suscipit lobortis gravida proin accumsan.</string>
 </resources>
