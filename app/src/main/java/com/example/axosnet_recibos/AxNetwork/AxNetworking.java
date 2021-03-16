@@ -1,17 +1,18 @@
 package com.example.axosnet_recibos.AxNetwork;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.axosnet_recibos.AxClases.AxReciboContent;
 import com.example.axosnet_recibos.Interfaces.NetCallback;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONStringer;
-import org.json.JSONTokener;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -112,10 +113,8 @@ public class AxNetworking extends AsyncTask<Object, Integer, Object> {
                 {\"id\":19295,\"provider\":\"test 2\",\"amount\":98.07,\"emission_date\":\"3/2/2021 12:00:00 AM\",\"comment\":\"ygictycu\",\"currency_code\":\"USD\"},
                 {\"id\":19296,\"provider\":\"test 3\",\"amount\":989.00,\"emission_date\":\"3/7/2021 12:00:00 AM\",\"comment\":\"kiyoyguig8\",\"currency_code\":\"USD\"}]"
                 */
-                jsonResponse = jsonResponse.replace("\\", "");
-                jsonResponse = jsonResponse.replace("\"[", "[");
-                jsonResponse = jsonResponse.replace("]\"", "]");
-                jsonResponse = jsonResponse.replace("\"Pago restante\"", "Pago restante");
+                Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls().create();
+                jsonResponse = gson.fromJson(jsonResponse, String.class);
                 JSONArray jsonArray = new JSONArray(jsonResponse);
 
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -159,12 +158,11 @@ public class AxNetworking extends AsyncTask<Object, Integer, Object> {
             /*
                 "[{\"id\":19291,\"provider\":\"Axosnet\",\"amount\":128.10,\"emission_date\":\"5/17/2019 12:00:00 AM\",\"comment\":\"Sin comentario\",\"currency_code\":\"MXN\"}]"
             */
-                jsonResponse = jsonResponse.replace("\\", "");
-                jsonResponse = jsonResponse.replace("\"[", "");
-                jsonResponse = jsonResponse.replace("]\"", "");
-                jsonResponse = jsonResponse.replace("\"Pago restante\"", "Pago restante");
+                Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls().create();
+                jsonResponse = gson.fromJson(jsonResponse, String.class);
+                JSONArray jsonArray = new JSONArray(jsonResponse);
 
-                JSONObject jsonObject = new JSONObject(jsonResponse);
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
                 recibo = new AxReciboContent(
                             jsonObject.optInt("id",0),
                             jsonObject.optString("provider","Axs"),
