@@ -27,24 +27,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="#1E000000"
-                app:layout_constraintBottom_toBottomOf="@+id/tvEmissionDate"
-                app:layout_constraintEnd_toStartOf="@+id/ibtnDelete"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <ImageButton
-                android:id="@+id/ibtnDelete"
+                android:id="@+id/ibtnDelete2"
+                style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"
+                android:background="#FFFFFF"
                 android:padding="4dp"
                 android:tint="@color/red"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -143,6 +134,28 @@
                 android:text="5/17/2019 12:00:00 AM"
                 app:layout_constraintEnd_toStartOf="@+id/ibtnDelete"
                 app:layout_constraintTop_toBottomOf="@+id/tvComment" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#1E000000"
+                app:layout_constraintBottom_toBottomOf="@+id/tvEmissionDate"
+                app:layout_constraintEnd_toStartOf="@+id/ibtnDelete"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/ibtnDelete"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="38dp"
+                android:layout_height="0dp"
+                android:foreground="@android:drawable/ic_menu_delete"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
