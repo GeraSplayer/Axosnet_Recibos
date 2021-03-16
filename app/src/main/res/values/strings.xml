@@ -19,7 +19,7 @@
     <string name="ax_emission_date">Emission Date</string>
     <string name="ax_currency_code">Currency Code</string>
 
-    <string name="deleteConfirmation">Are you sure to delete?</string>
+    <string name="deleteConfirmation">Are you sure you want to delete?</string>
 
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
