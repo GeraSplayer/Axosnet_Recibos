@@ -11,7 +11,9 @@
     <string name="NewR">Add</string>
     <string name="EditR">Apply</string>
 
+    <string name="ax_id">ID</string>
     <string name="ax_provider">Provider</string>
+    <string name="ax_amount_sign">$</string>
     <string name="ax_amount">Amount</string>
     <string name="ax_comment">Comment</string>
     <string name="ax_emission_date">Emission Date</string>
@@ -29,6 +31,10 @@
     <string name="insertMsg">New receipt added successfully</string>
     <string name="updateMsg">Updated successfully</string>
     <string name="deleteMsg">deleted successfully</string>
+
+    <string name="validationP">You need to enter a name</string>
+    <string name="validationA">You need to enter an amount</string>
+    <string name="optional">(Optional)</string>
 
     <string name="test">Lorem ipsum dolor sit amet consectetur adipiscing elit pharetra quam magna, dis sodales condimentum est maecenas purus volutpat ullamcorper phasellus potenti vel, natoque pretium lacinia id suscipit lobortis gravida proin accumsan.</string>
 </resources>

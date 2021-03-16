@@ -30,9 +30,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp"
+        android:text="@string/ax_id"
+        android:textColor="@color/purple_700"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEditID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/lblId"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="101" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -99,7 +112,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="@string/ax_comment">
+                android:hint="@string/ax_comment"
+                app:helperText="@string/optional">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

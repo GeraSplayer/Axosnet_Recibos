@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="Axosnet0"
-                app:layout_constraintEnd_toStartOf="@+id/tvId"
+                app:layout_constraintEnd_toStartOf="@+id/textView2"
                 app:layout_constraintStart_toEndOf="@+id/lblProvider"
                 app:layout_constraintTop_toTopOf="@+id/lblProvider" />
 
@@ -94,13 +94,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/lblProvider" />
 
             <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/ax_amount_sign"
+                app:layout_constraintStart_toEndOf="@+id/lblAmount"
+                app:layout_constraintTop_toTopOf="@+id/lblAmount" />
+
+            <TextView
                 android:id="@+id/tvAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="150.0"
-                app:layout_constraintStart_toEndOf="@+id/lblAmount"
-                app:layout_constraintTop_toBottomOf="@+id/lblProvider" />
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/textView3" />
 
             <TextView
                 android:id="@+id/lblComment"
@@ -155,6 +164,17 @@
                 android:foregroundGravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/ax_id"
+                android:textColor="@color/purple_700"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvId"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

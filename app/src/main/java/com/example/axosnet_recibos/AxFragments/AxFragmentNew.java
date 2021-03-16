@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ public class AxFragmentNew extends Fragment {
     TextInputLayout mComment;
     Spinner mCurrency;
     Button mBtnSubmit;
+    TextView tvEditID;
     TextView lblId;
 
     public AxFragmentNew(Context context, int id) {
@@ -51,17 +54,46 @@ public class AxFragmentNew extends Fragment {
         view = inflater.inflate(R.layout.fragment_ax_new, container, false);
         mDate = (TextView) view.findViewById(R.id.tvCurrentDate);
         mProvider = (TextInputLayout) view.findViewById(R.id.tilProvider);
+        mProvider.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mProvider.setErrorEnabled(false);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
         mAmount = (TextInputLayout) view.findViewById(R.id.tilAmount);
+        mAmount.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mAmount.setErrorEnabled(false);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
         mComment = (TextInputLayout) view.findViewById(R.id.tilComment);
         mCurrency = (Spinner) view.findViewById(R.id.sCurrency);
         mBtnSubmit = (Button) view.findViewById(R.id.btnSubmit);
+        tvEditID = (TextView) view.findViewById(R.id.tvEditID);
         lblId = (TextView) view.findViewById(R.id.lblId);
 
         if(mId > 0) {
-            lblId.setText(String.valueOf(mId));
+            lblId.setVisibility(View.VISIBLE);
+            tvEditID.setText(String.valueOf(mId));
             mBtnSubmit.setText(R.string.EditR);
             getReceiptDetails();
         }else{
+            lblId.setVisibility(View.GONE);
             String currentDate = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault()).format(new Date());
             mDate.setText(currentDate);
         }
@@ -69,7 +101,8 @@ public class AxFragmentNew extends Fragment {
         mBtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submit();
+                if(checkEmptyInputs())
+                    submit();
             }
         });
         return view;
@@ -97,14 +130,39 @@ public class AxFragmentNew extends Fragment {
         });
     }
 
+    private boolean checkEmptyInputs(){
+        boolean flag = true;
+        String string1 = mProvider.getEditText().getText().toString();
+        String string2 = mAmount.getEditText().getText().toString();
+
+        if(string1.isEmpty() || string2.isEmpty() || string1.startsWith(" ") )
+            flag = false;
+
+        if(!flag){
+            if(string1.isEmpty() || string1.startsWith(" "))
+                mProvider.setError(getResources().getString(R.string.validationP));
+
+            if(string2.isEmpty())
+                mAmount.setError(getResources().getString(R.string.validationP));
+
+        }
+
+        return flag;
+    }
+
     private void submit(){
         String submitType = mId > 0 ? "update":"insert";
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        String comment = "Sin comentario";
+        if(mComment.getEditText().getText().toString().equals("-") || mComment.getEditText().getText().toString().isEmpty() || mComment.getEditText().getText().toString().startsWith(" ") )
+            comment = "Sin comentario";
+        else
+            comment = mComment.getEditText().getText().toString();
 
         AxReciboContent recibo = new AxReciboContent(mId,
                 mProvider.getEditText().getText().toString(),
                 mAmount.getEditText().getText().toString(),
-                mComment.getEditText().getText().toString(),
+                comment,
                 currentDate,
                 mCurrency.getSelectedItem().toString()
         );

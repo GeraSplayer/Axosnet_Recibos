@@ -12,11 +12,19 @@ public class AxReciboContent {
     public AxReciboContent(int id, String provider, String amount, String comment, String emissionDate, String currencyCode) {
         this.id = id;
         this.provider = provider;
-        this.amount = amount;
-        if(!comment.equals("null"))
-            this.comment = comment;
+
+        if(provider.equals("null"))
+            this.provider = "-";
         else
+            this.provider = provider;
+
+        this.amount = amount;
+
+        if(comment.equals("null") || comment.equals("Sin comentario"))
             this.comment = "-";
+        else
+            this.comment = comment;
+
         this.emissionDate = emissionDate;
         this.currencyCode = currencyCode;
     }

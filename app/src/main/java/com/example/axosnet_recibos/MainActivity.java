@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentClickLi
                         if((Boolean)data) {
                             showUpdate(String.valueOf(id)+" Correctamente eliminado");
                             ((AxFragmentLista) fm.findFragmentByTag("Lista")).initLista();
+                            fabAgregarRecibo.show();
                         }else
                             showToast("Error");
                     }
